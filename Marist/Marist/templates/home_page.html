@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %} <!-- template tags and filters http://docs.wagtail.io/en/v2.0/topics/writing_templates.html#template-tags-and-filters -->
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block content %}
+  {{ page.body|richtext}}
+{% endblock %}

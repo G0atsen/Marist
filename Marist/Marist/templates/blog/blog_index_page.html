@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-blogindexpage{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/blog/business-casual.css' %}">
+
+
+{% for post in blogpages %}
+  {% with post=post.specific %}
+  {% image post.main_image width-400 as my_image %}
+    <section class="page-section clearfix">
+      <div class="container">
+        <div class="intro">
+          <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="{{ my_image.url }}" alt="">
+          <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+            <h2 class="section-heading mb-4">
+              <span class="section-heading-lower">{{ post.title }}</span>
+            </h2>
+            <p class="mb-3">{{ post.intro|safe }}</p>
+            <div class="intro-button mx-auto">
+              <a class="btn btn-primary btn-xl" href="{% pageurl post %}">Read</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  {% endwith %}
+{% endfor %}
+
+
+
+
+{% endblock %}

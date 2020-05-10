@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-blogpage{% endblock %}
+
+{% block toptitle %}
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/blog/clean-blog.css' %}">
+{% image page.specific.main_image width-400 as my_image %}
+<header class="masthead" style="background-image: url({{ my_image.url }})">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="post-heading">
+          <h1>{{ page.title }}</h1>
+          <h2 class="subheading">{{ page.intro }}</h2>
+          <span class="meta">Posted by
+            <a href="#">Start Bootstrap</a>
+            on {{ page.date }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+          <!-- <h2 class="section-heading">The Final Frontier</h2>
+          <blockquote class="blockquote">The dreams of yesterday are the</blockquote>
+          <img class="img-fluid" src="img/post-sample-image.jpg" alt="">            -->
+        {{ page.body | richtext}}
+
+        {% for item in page.gallery_images.all %}
+            <div style="float: left; margin: 10px">
+                {% image item.image fill-320x240 %}
+                <p>{{ item.caption }}</p>
+            </div>
+        {% endfor %}
+
+        {% with categories=page.categories.all %}
+        {% if categories %}
+            <h3>Posted in:</h3>
+            <ul>
+                {% for category in categories %}
+                    <li style="display: inline">
+                        {% image category.icon fill-32x32 style="vertical-align: middle" %}
+                        {{ category.name }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
+
+
+            {% if page.tags.all.count %}
+                <div class="tags">
+                    <h3>Tags</h3>
+                    {% for tag in page.tags.all %}
+                        <a href="{% slugurl 'tags' %}?tag={{ tag }}"><button type="button">{{ tag }}</button></a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+
+{% endblock %}
