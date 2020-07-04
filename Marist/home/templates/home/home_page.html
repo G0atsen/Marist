@@ -7,6 +7,7 @@
 
 {% block content %}
 {% for post in blogindexes %}
+{% if post.specific.title != 'Contact us!' %}
   {% with post=post.specific %}
   {% image post.specific.main_image width-400 as my_image %}
     <section class="page-section clearfix">
@@ -26,5 +27,6 @@
       </div>
     </section>
   {% endwith %}
+  {% endif %}
 {% endfor %}
 {% endblock %}

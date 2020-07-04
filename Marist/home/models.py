@@ -19,3 +19,7 @@ class HomePage(Page):
         blogpages = self.get_children().live().order_by('-first_published_at')
         context['blogindexes'] = blogpages #the ['blogpages'] is what is used in blog_index_page {% for post in blogpages %}
         return context
+
+class AboutPage(Page):
+    def showabout():
+        return render('templates/about.html')
